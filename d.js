@@ -443,35 +443,31 @@ http://giaitri.vnexpress.net/tin-tuc/gioi-sao/quoc-te/chris-brown-bi-cam-den-gan
 </channel>
 </rss>`;
 
-const name = 'Khoa Pham';
-
-// console.log(data.includes('</rsssss>'))
-// console.log(name.lastIndexOf('a'));
-// console.log(name.indexOf('a', 5));
-// const name1 = name.replace('P', 'p');
-// console.log(name1);
-
-// console.log(name.substring(2, 6));
-const names = '   Pho Khoa Huong\n    ';
-
-// console.log(names.split(' '));
-// console.log(names.toUpperCase());
-const arrTin = [];
-console.log(names.trim());
-
 class Tin {
     constructor(title, image, link, desc) {
         this.title = title;
+        this.image = image;
+        this.link = link;
+        this.desc = desc;
     }
 }
 
+function getBody(str, pre, post) {
+    const start = str.indexOf(pre) + pre.length;
+    const end = str.indexOf(post, start);
+    return str.substring(start, end).trim();
+};
+
+function getTin(item) {
+    const title = getBody(item, '<title>', '</title>');
+    const link = getBody(item, '<link>', '</link>');
+    const image = getBody(item, 'src="', '" ></a>');
+    const desc = getBody(item, '</br>', ']]>');
+    return new Tin(title, image, link, desc);
+}
+
+const arrItem = data.split('<item>');
+arrItem.shift();
+
+const arrTin = arrItem.map(getTin);
 console.log(arrTin);
-/*
-    [
-        {
-            title: ..,
-            image: ...,
-            link: ...
-        }, {}, {}
-    ]
-*/
