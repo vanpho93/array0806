@@ -23,6 +23,5 @@ const arrPerson = [teo, ti, tun];
         // console.log(check(arrPerson, e => e.height > 190));
         // console.log(check(arrPerson, e => e.age > 18));
 
-
 const isOldEnough = arrPerson.every(e => e.age > 15);
 console.log(isOldEnough);
